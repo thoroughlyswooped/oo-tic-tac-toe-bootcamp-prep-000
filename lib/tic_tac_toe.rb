@@ -27,8 +27,8 @@ class TicTacToe
     return (input.to_i - 1)
   end
   
-  def move(board, position, token)
-    board[position] = token;
+  def move(postition, token)
+    @board[position] = token;
   end
   
   def position_taken?(board, index)
