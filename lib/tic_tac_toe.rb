@@ -57,7 +57,8 @@ class TicTacToe
     token = current_player();
     index = input_to_index(input);
     if (valid_move?(index))
-      move(index, token)
+      move(index, token);
+      diplay_board;
     else
       puts ("Invalid Move. Enter 1-9 for empty spot.");
       input = gets.strip;
