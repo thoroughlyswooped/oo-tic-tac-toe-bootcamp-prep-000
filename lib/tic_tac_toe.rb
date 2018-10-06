@@ -31,60 +31,60 @@ class TicTacToe
     @board[position] = token;
   end
   
-  def position_taken?(board, index)
-    return !(board[index] == nil || board[index] == " ");
+  def position_taken?(index)
+    return !(@board[index] == nil || @board[index] == " ");
   end
   
-  def valid_move?(board, index)
-    (!position_taken?(board, index) && index.between?(0, 8));
+  def valid_move?(index)
+    (!position_taken?(index) && index.between?(0, 8));
   end
   
-  def current_player(board)
-    return turn_count(board)%2 == 0 ? "X" : "O";
+  def current_player
+    return turn_count%2 == 0 ? "X" : "O";
   end
   
-  def turn_count(board)
-    count_array = board.each_index.select do |index|
-      position_taken?(board, index);
+  def turn_count
+    count_array = @board.each_index.select do |index|
+      position_taken?(index);
     end
     
     return count_array.length;
     
   end
   
-  def turn(board)
+  def turn
     input = gets.strip;
-    token = current_player(board);
+    token = current_player();
     index = input_to_index(input);
-    if (valid_move?(board, index))
-      move(board, index, token)
+    if (valid_move?(index))
+      move(index, token)
     else
       puts ("Invalid Move. Enter 1-9 for empty spot.");
       input = gets.strip;
     end
   end
   
-  def draw?(board)
-    (full?(board) && !won?(board))
+  def draw?
+    (full? && !won?
   end
   
-  def full?(board)
-    board.each_index.all? do |index|
-      position_taken?(board, index);
+  def full?
+    @board.each_index.all? do |index|
+      position_taken?(index);
     end
   end
   
-  def won?(board)
+  def won?
     WIN_COMBINATIONS.each do |index_lst|
       if (
         index_lst.all? do |index|
-          board[index] == "X"
+          @board[index] == "X"
         end
         )
         return index_lst;
       elsif (
         index_lst.all? do |index|
-          board[index] == "O"
+          @board[index] == "O"
         end
         )
         return index_lst;
@@ -93,25 +93,25 @@ class TicTacToe
     return false;
   end
   
-  def over?(board)
-    return (won?(board) || draw?(board));
+  def over?
+    return (won? || draw?);
   end
   
-  def winner(board)
-    if(won?(board))
-      return board[won?(board)[0]]
+  def winner
+    if(won?)
+      return @board[won?[0]]
     else
       return nil;
     end
   end
   
-  def play(board)
-    until over?(board)
-      turn(board);
+  def play
+    until over?
+      turn;
     end
     
-    if (won?(board))
-      puts "Congratulations #{winner(board)}!";
+    if (won?)
+      puts "Congratulations #{winner}!";
     else
       puts "Cat's Game!";
     end
